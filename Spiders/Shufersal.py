@@ -12,7 +12,13 @@ class Shufersal(scrapy.Spider):
     name = 'shufersal-spider'
     start_urls = ['http://prices.shufersal.co.il']
     allowed_domains = ['prices.shufersal.co.il']
-    bar = False
+
+    storage_path = './files/shufersal/'
+    progressbar = False
+
+    files_per_page = 20
+    original_file_extension = '.gz'
+    target_file_extension = '.xml'
 
     def parse(self, response):
 
@@ -24,7 +30,7 @@ class Shufersal(scrapy.Spider):
 
         self.download_from_links(links)
 
-        self.continue_to_next_pages(response)
+        return self.continue_to_next_pages(response)
 
     @staticmethod
     def collect_links(response):
@@ -41,25 +47,28 @@ class Shufersal(scrapy.Spider):
         return int(matches.group())
 
     def start_progress_bar(self, total_pages):
-        if self.bar:
+        if self.progressbar:
             return 0
-        self.bar = tqdm(total=total_pages * 20)
+        self.progressbar = tqdm(total=total_pages * self.files_per_page)
 
     def download_from_links(self, links):
         for index, file_link in enumerate(links):
-            self.bar.update(1)
+            self.progressbar.update(1)
 
-            file_save_path = './files/shufersal/' + ntpath.basename(urlsplit(fileLink).path)
+            file_save_path = self.storage_path + ntpath.basename(urlsplit(file_link).path)
             filename = os.path.splitext(file_save_path)[0]
 
-            urlretrieve(file_link, filename + '.gz')
+            urlretrieve(file_link, filename + self.original_file_extension)
 
-            with gzip.open(file_save_path, 'rb') as infile:
-                with open(filename + '.xml', 'wb') as outfile:
-                    for line in infile:
-                        outfile.write(line)
+            self.__extract_xml_file_from_gz_file(file_save_path, filename)
 
-            os.remove(filename + '.gz')
+            os.remove(filename + self.original_file_extension)
+
+    def __extract_xml_file_from_gz_file(self, file_save_path, filename):
+        with gzip.open(file_save_path, 'rb') as infile:
+            with open(filename + self.target_file_extension, 'wb') as outfile:
+                for line in infile:
+                    outfile.write(line)
 
     def continue_to_next_pages(self, response):
         for next_page in response.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[contains(.,">")]'):
