@@ -12,7 +12,6 @@ class Main:
         logging.getLogger('scrapy').propagate = False
         print("Crawling Shufersal...")
         process = CrawlerProcess({
-            'install_root_handler': False,
             'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'
         })
         process.crawl(Shufersal.Shufersal())
