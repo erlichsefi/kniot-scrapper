@@ -2,7 +2,7 @@
 
 Israel supermarkets XML files scrapper
 
-## Currently supports:
+## Supports:
 * Shufersal
 
 ## TODO:
