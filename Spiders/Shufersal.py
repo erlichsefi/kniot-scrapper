@@ -1,11 +1,11 @@
-import scrapy
-from urllib.parse import urlsplit
-from urllib.request import urlretrieve
-import ntpath
 import gzip
+import ntpath
 import os
 import re
+import scrapy
 from tqdm import tqdm
+from urllib.parse import urlsplit
+from urllib.request import urlretrieve
 
 
 class Shufersal(scrapy.Spider):
