@@ -1,13 +1,18 @@
 from Spiders import Shufersal
 from scrapy.crawler import CrawlerProcess
+import logging
 
-class Main():
+
+class Main:
     def __init__(self):
         self.init_shufersal(self)
 
     @staticmethod
     def init_shufersal(self):
+        logging.getLogger('scrapy').propagate = False
+        print("Crawling Shufersal...")
         process = CrawlerProcess({
+            'install_root_handler': False,
             'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)'
         })
         process.crawl(Shufersal.Shufersal())
