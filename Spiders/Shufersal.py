@@ -28,7 +28,7 @@ class Shufersal(scrapy.Spider):
 
         self.start_progress_bar(total_pages)
 
-        self.download_from_links(links)
+        self.get_xml_files(links)
 
         return self.continue_to_next_pages(response)
 
@@ -51,7 +51,7 @@ class Shufersal(scrapy.Spider):
             return 0
         self.progressbar = tqdm(total=total_pages * self.files_per_page)
 
-    def download_from_links(self, links):
+    def get_xml_files(self, links):
         for index, file_link in enumerate(links):
             self.progressbar.update(1)
 
@@ -60,11 +60,11 @@ class Shufersal(scrapy.Spider):
 
             urlretrieve(file_link, filename + self.original_file_extension)
 
-            self.__extract_xml_file_from_gz_file(file_save_path, filename)
+            self.extract_xml_file_from_gz_file(file_save_path, filename)
 
             os.remove(filename + self.original_file_extension)
 
-    def __extract_xml_file_from_gz_file(self, file_save_path, filename):
+    def extract_xml_file_from_gz_file(self, file_save_path, filename):
         with gzip.open(file_save_path, 'rb') as infile:
             with open(filename + self.target_file_extension, 'wb') as outfile:
                 for line in infile:
