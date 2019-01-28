@@ -4,6 +4,7 @@ from scrappers import osherad
 from scrappers import hazihinam
 from scrappers import keshet
 from scrappers import superdosh
+from scrappers import yohananof
 from scrapy.crawler import CrawlerProcess
 import logging
 
@@ -15,7 +16,8 @@ class Main:
         #self.init_osherad()
         #self.init_hazihinam()
         #self.init_keshet()
-        self.init_superdosh()
+        #self.init_superdosh()
+        self.init_yohananof()
 
     @staticmethod
     def init_shufersal():
@@ -57,6 +59,12 @@ class Main:
         print("Crawling Super Dosh...")
 
         superdosh.SuperDosh().scrape()
+
+    @staticmethod
+    def init_yohananof():
+        print("Crawling Yohananof...")
+
+        yohananof.Yohananof().scrape()
 
 
 if __name__ == '__main__':
