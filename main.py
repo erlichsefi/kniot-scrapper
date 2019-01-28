@@ -8,6 +8,7 @@ from scrappers import yohananof
 from scrappers import stop_market
 from scrappers import doralon
 from scrappers import tivtaam
+from scrappers import freshmarket
 from scrapy.crawler import CrawlerProcess
 import logging
 
@@ -23,7 +24,8 @@ class Main:
         #self.init_yohananof()
         #self.init_stop_market()
         #self.init_doralon()
-        self.init_tivtaam()
+        #self.init_tivtaam()
+        self.init_freshmarket()
 
     @staticmethod
     def init_shufersal():
@@ -89,6 +91,12 @@ class Main:
         print("Crawling Tiv Taam...")
 
         tivtaam.TivTaam().scrape()
+
+    @staticmethod
+    def init_freshmarket():
+        print("Crawling Fresh Market...")
+
+        freshmarket.FreshMarket().scrape()
 
 
 if __name__ == '__main__':
