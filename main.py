@@ -1,6 +1,8 @@
 from scrappers import shufersal
 from scrappers import ramilevy
 from scrappers import osherad
+from scrappers import hazihinam
+from scrappers import keshet
 from scrapy.crawler import CrawlerProcess
 import logging
 
@@ -9,7 +11,9 @@ class Main:
     def __init__(self):
         #self.init_shufersal()
         #self.init_rami_levy()
-        self.init_osherad()
+        #self.init_osherad()
+        #self.init_hazihinam()
+        self.init_keshet()
 
     @staticmethod
     def init_shufersal():
@@ -33,6 +37,18 @@ class Main:
         print("Crawling Osher Ad...")
 
         osherad.Osherad().scrape()
+
+    @staticmethod
+    def init_hazihinam():
+        print("Crawling Hazi Hinam...")
+
+        hazihinam.HaziHinam().scrape()
+
+    @staticmethod
+    def init_keshet():
+        print("Crawling Keshet Teamim...")
+
+        keshet.Keshet().scrape()
 
 
 

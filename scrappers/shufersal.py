@@ -65,10 +65,13 @@ class Shufersal(scrapy.Spider):
             os.remove(filename + self.original_file_extension)
 
     def extract_xml_file_from_gz_file(self, file_save_path, filename):
-        with gzip.open(file_save_path, 'rb') as infile:
-            with open(filename + self.target_file_extension, 'wb') as outfile:
-                for line in infile:
-                    outfile.write(line)
+        try:
+            with gzip.open(file_save_path, 'rb') as infile:
+                with open(filename + self.target_file_extension, 'wb') as outfile:
+                    for line in infile:
+                        outfile.write(line)
+        except:
+            print('Error decoding file:' + filename)
 
     def continue_to_next_pages(self, response):
         for next_page in response.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[contains(.,">")]'):

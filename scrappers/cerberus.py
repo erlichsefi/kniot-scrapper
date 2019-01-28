@@ -54,7 +54,10 @@ class Cerberus:
         os.remove(local_filename)
 
     def extract_xml_file_from_gz_file(self, file_save_path, filename):
-        with gzip.open(file_save_path, 'rb') as infile:
-            with open(filename + self.target_file_extension, 'wb') as outfile:
-                for line in infile:
-                    outfile.write(line)
+        try:
+            with gzip.open(file_save_path, 'rb') as infile:
+                with open(filename + self.target_file_extension, 'wb') as outfile:
+                    for line in infile:
+                        outfile.write(line)
+        except:
+            print('Error decoding file:' + filename)
