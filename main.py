@@ -15,16 +15,16 @@ import logging
 
 class Main:
     def __init__(self):
-        #self.init_shufersal()
-        #self.init_rami_levy()
-        #self.init_osherad()
-        #self.init_hazihinam()
-        #self.init_keshet()
-        #self.init_superdosh()
-        #self.init_yohananof()
-        #self.init_stop_market()
-        #self.init_doralon()
-        #self.init_tivtaam()
+        self.init_shufersal()
+        self.init_rami_levy()
+        self.init_osherad()
+        self.init_hazihinam()
+        self.init_keshet()
+        self.init_superdosh()
+        self.init_yohananof()
+        self.init_stop_market()
+        self.init_doralon()
+        self.init_tivtaam()
         self.init_freshmarket()
 
     @staticmethod
