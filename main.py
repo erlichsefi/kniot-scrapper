@@ -77,7 +77,7 @@ class Main:
         stop_market.StopMarket().scrape()
 
     @staticmethod
-    def init_stop_market():
+    def init_doralon():
         print("Crawling Dor Alon...")
 
         doralon.DorAlon().scrape()
