@@ -3,6 +3,7 @@ from scrappers import ramilevy
 from scrappers import osherad
 from scrappers import hazihinam
 from scrappers import keshet
+from scrappers import superdosh
 from scrapy.crawler import CrawlerProcess
 import logging
 
@@ -13,7 +14,8 @@ class Main:
         #self.init_rami_levy()
         #self.init_osherad()
         #self.init_hazihinam()
-        self.init_keshet()
+        #self.init_keshet()
+        self.init_superdosh()
 
     @staticmethod
     def init_shufersal():
@@ -50,6 +52,11 @@ class Main:
 
         keshet.Keshet().scrape()
 
+    @staticmethod
+    def init_superdosh():
+        print("Crawling Super Dosh...")
+
+        superdosh.SuperDosh().scrape()
 
 
 if __name__ == '__main__':
