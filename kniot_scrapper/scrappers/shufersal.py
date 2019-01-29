@@ -1,11 +1,12 @@
-import gzip
 import ntpath
 import os
 import re
-import scrapy
-from tqdm import tqdm
 from urllib.parse import urlsplit
 from urllib.request import urlretrieve
+import scrapy
+from tqdm import tqdm
+from kniot_scrapper.utils import Logger
+from kniot_scrapper.utils import Gzip
 
 
 class Shufersal(scrapy.Spider):
@@ -19,6 +20,11 @@ class Shufersal(scrapy.Spider):
     files_per_page = 20
     original_file_extension = '.gz'
     target_file_extension = '.xml'
+
+    def __init__(self, **kwargs):
+        Logger.start_scrapper("Shufersal")
+        super().__init__(**kwargs)
+
 
     def parse(self, response):
 
@@ -60,18 +66,10 @@ class Shufersal(scrapy.Spider):
 
             urlretrieve(file_link, filename + self.original_file_extension)
 
-            self.extract_xml_file_from_gz_file(file_save_path, filename)
+            Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
 
             os.remove(filename + self.original_file_extension)
 
-    def extract_xml_file_from_gz_file(self, file_save_path, filename):
-        try:
-            with gzip.open(file_save_path, 'rb') as infile:
-                with open(filename + self.target_file_extension, 'wb') as outfile:
-                    for line in infile:
-                        outfile.write(line)
-        except:
-            print('Error decoding file:' + filename)
 
     def continue_to_next_pages(self, response):
         for next_page in response.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[contains(.,">")]'):

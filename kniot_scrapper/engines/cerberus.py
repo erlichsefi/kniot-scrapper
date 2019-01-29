@@ -1,8 +1,9 @@
-from ftplib import FTP_TLS
-import os
-from tqdm import tqdm
 import ntpath
-import gzip
+import os
+from ftplib import FTP_TLS
+from tqdm import tqdm
+
+from kniot_scrapper.utils import Gzip
 
 
 class Cerberus:
@@ -17,13 +18,14 @@ class Cerberus:
     target_file_extension = '.xml'
 
     def scrape(self):
+
         ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
 
-        filenames = ftp.nlst()
+        file_names = ftp.nlst()
 
-        self.progressbar = tqdm(total=len(filenames))
+        self.progressbar = tqdm(total=len(file_names))
 
-        for filename in filenames:
+        for filename in file_names:
             self.persist_file(ftp, filename)
 
         ftp.quit()
@@ -49,15 +51,6 @@ class Cerberus:
 
         filename = os.path.splitext(file_save_path)[0]
 
-        self.extract_xml_file_from_gz_file(file_save_path, filename)
+        Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
 
         os.remove(local_filename)
-
-    def extract_xml_file_from_gz_file(self, file_save_path, filename):
-        try:
-            with gzip.open(file_save_path, 'rb') as infile:
-                with open(filename + self.target_file_extension, 'wb') as outfile:
-                    for line in infile:
-                        outfile.write(line)
-        except:
-            print('Error decoding file:' + filename)
