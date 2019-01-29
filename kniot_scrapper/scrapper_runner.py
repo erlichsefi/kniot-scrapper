@@ -3,7 +3,8 @@ from kniot_scrapper.scrappers import *
 
 class ScrapperRunner:
 
-    def run(self):
+    @staticmethod
+    def run():
         RamiLevy().scrape()
         Osherad().scrape()
         HaziHinam().scrape()
