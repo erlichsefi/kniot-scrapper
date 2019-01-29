@@ -1,8 +1,7 @@
-import ntpath
 import os
-from ftplib import FTP_TLS
+import ntpath
 from tqdm import tqdm
-
+from ftplib import FTP_TLS
 from kniot_scrapper.utils import Gzip
 
 

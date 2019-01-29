@@ -1,12 +1,12 @@
 import ntpath
 import os
 import re
+import scrapy
+from kniot_scrapper.utils import Gzip
+from kniot_scrapper.utils import Logger
+from tqdm import tqdm
 from urllib.parse import urlsplit
 from urllib.request import urlretrieve
-import scrapy
-from tqdm import tqdm
-from kniot_scrapper.utils import Logger
-from kniot_scrapper.utils import Gzip
 
 
 class Shufersal(scrapy.Spider):
