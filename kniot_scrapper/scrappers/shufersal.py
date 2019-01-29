@@ -3,6 +3,7 @@ from kniot_scrapper.engines import Shufersal as ShufersalEngine
 from kniot_scrapper.utils import Logger
 from scrapy.crawler import CrawlerProcess
 
+
 class Shufersal:
 
    @staticmethod

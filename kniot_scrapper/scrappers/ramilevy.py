@@ -1,6 +1,7 @@
 from kniot_scrapper.engines import Cerberus
 from kniot_scrapper.utils import Logger
 
+
 class RamiLevy(Cerberus):
 
     ftp_username = 'RamiLevi'
