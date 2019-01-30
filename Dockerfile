@@ -1,9 +1,4 @@
-FROM python:3
-
-WORKDIR /usr/src/app
-
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+FROM 581987291365.dkr.ecr.us-east-1.amazonaws.com/ybaruchel/kniot-scrapper/base-image
 
 COPY . .
 
