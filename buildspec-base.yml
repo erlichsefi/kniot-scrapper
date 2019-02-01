@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo.Logging in to Amazon ECR...
+      - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
       - REPOSITORY_URI=581987291365.dkr.ecr.eu-central-1.amazonaws.com/ybaruchel/kniot-scrapper/base-image
