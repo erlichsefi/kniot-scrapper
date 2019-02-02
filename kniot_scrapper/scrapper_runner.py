@@ -5,6 +5,8 @@ class ScrapperRunner:
 
     @staticmethod
     def run():
+        print("Starting scrapper")
+
         RamiLevy().scrape()
         Osherad().scrape()
         HaziHinam().scrape()

@@ -2,9 +2,11 @@ from kniot_scrapper import ScrapperRunner
 
 
 class Main:
-    def __init__(self):
+
+    def start(self):
         runner = ScrapperRunner()
         runner.run()
 
 if __name__ == '__main__':
-    Main()
+    while True: # Because we want to be always up to date
+        Main().start()

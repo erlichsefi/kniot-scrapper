@@ -3,7 +3,7 @@ import os
 import re
 import scrapy
 from kniot_scrapper.utils import Gzip
-from kniot_scrapper.utils import Logger
+from kniot_scrapper.utils import S3
 from tqdm import tqdm
 from urllib.parse import urlsplit
 from urllib.request import urlretrieve
@@ -62,6 +62,10 @@ class Shufersal(scrapy.Spider):
             urlretrieve(file_link, filename + self.original_file_extension)
 
             Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
+
+            S3.upload(file_save_path, file_save_path)
+
+            os.remove(file_save_path)
 
             os.remove(filename + self.original_file_extension)
 
