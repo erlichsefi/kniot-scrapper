@@ -2,4 +2,4 @@ FROM 581987291365.dkr.ecr.eu-central-1.amazonaws.com/ybaruchel/kniot-scrapper/ba
 
 COPY . .
 
-CMD [ "python", "./main.py" ]
+ENTRYPOINT [ "python", "./main.py" ]
