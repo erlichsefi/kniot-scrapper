@@ -6,7 +6,7 @@ class Keshet(Cerberus):
 
     ftp_username = 'Keshet'
 
-    storage_path = './files/keshet_taamim/'
+    storage_path = 'dumps/keshet_taamim/'
 
     def scrape(self):
         Logger.start_scrapper("Keshet Taamim")

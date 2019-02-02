@@ -14,7 +14,7 @@ class Shufersal(scrapy.Spider):
     start_urls = ['http://prices.shufersal.co.il']
     allowed_domains = ['prices.shufersal.co.il']
 
-    storage_path = './files/shufersal/'
+    storage_path = 'dumps/shufersal/'
     progressbar = False
 
     files_per_page = 20
@@ -63,9 +63,9 @@ class Shufersal(scrapy.Spider):
 
             Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
 
-            S3.upload(file_save_path, file_save_path)
+            S3.upload(filename + self.target_file_extension, filename + self.target_file_extension)
 
-            os.remove(file_save_path)
+            os.remove(filename + self.target_file_extension)
 
             os.remove(filename + self.original_file_extension)
 

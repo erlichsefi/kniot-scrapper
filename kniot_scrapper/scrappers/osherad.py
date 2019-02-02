@@ -6,7 +6,7 @@ class Osherad(Cerberus):
 
     ftp_username = 'osherad'
 
-    storage_path = './files/osherad/'
+    storage_path = 'dumps/osherad/'
 
     def scrape(self):
         Logger.start_scrapper("Osher Ad")

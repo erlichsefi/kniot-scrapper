@@ -6,7 +6,7 @@ class FreshMarket(Cerberus):
 
     ftp_username = 'freshmarket'
 
-    storage_path = './files/freshmarket/'
+    storage_path = 'dumps/freshmarket/'
 
     def scrape(self):
         Logger.start_scrapper("Fresh Market")

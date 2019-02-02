@@ -6,7 +6,7 @@ class HaziHinam(Cerberus):
 
     ftp_username = 'HaziHinam'
 
-    storage_path = './files/hazihinam/'
+    storage_path = 'dumps/hazihinam/'
 
     def scrape(self):
         Logger.start_scrapper("Hazi Hinam")

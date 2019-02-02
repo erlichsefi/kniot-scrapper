@@ -6,7 +6,7 @@ class StopMarket(Cerberus):
 
     ftp_username = 'Stop_Market'
 
-    storage_path = './files/stop_market/'
+    storage_path = 'dumps/stop_market/'
 
     def scrape(self):
         Logger.start_scrapper("Stop Market")

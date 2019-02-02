@@ -6,7 +6,7 @@ class SuperDosh(Cerberus):
 
     ftp_username = 'SuperDosh'
 
-    storage_path = './files/superdosh/'
+    storage_path = 'dumps/superdosh/'
 
     def scrape(self):
         Logger.start_scrapper("SuperDosh")

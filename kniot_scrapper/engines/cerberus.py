@@ -11,7 +11,7 @@ class Cerberus:
     ftp_host = 'url.retail.publishedprices.co.il'
     ftp_username = ''
     ftp_password = ''
-    storage_path = './'
+    storage_path = ''
 
     progressbar = False
 
@@ -53,8 +53,8 @@ class Cerberus:
 
         Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
 
-        S3.upload(file_save_path, file_save_path)
+        S3.upload(filename + self.target_file_extension, filename + self.target_file_extension)
 
-        os.remove(file_save_path)
+        os.remove(filename + self.target_file_extension)
 
         os.remove(local_filename)

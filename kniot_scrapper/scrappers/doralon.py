@@ -6,7 +6,7 @@ class DorAlon(Cerberus):
 
     ftp_username = 'doralon'
 
-    storage_path = './files/doralon/'
+    storage_path = 'dumps/doralon/'
 
     def scrape(self):
         Logger.start_scrapper("Dor Alon")

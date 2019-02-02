@@ -6,7 +6,7 @@ class TivTaam(Cerberus):
 
     ftp_username = 'TivTaam'
 
-    storage_path = './files/tivtaam/'
+    storage_path = 'dumps/tivtaam/'
 
     def scrape(self):
         Logger.start_scrapper("Tiv Taam")
