@@ -1,6 +1,0 @@
-[
-    {
-        "name": "kniot-scrapper",
-        "imageUri": "581987291365.dkr.ecr.eu-central-1.amazonaws.com/ybaruchel/kniot-scrapper/kniot-scrapper:latest"
-    }
-]
