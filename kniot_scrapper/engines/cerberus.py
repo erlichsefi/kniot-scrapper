@@ -1,6 +1,5 @@
 from ftplib import FTP_TLS
 from kniot_scrapper.utils import Gzip
-from kniot_scrapper.utils import S3
 import ntpath
 import os
 from tqdm import tqdm
@@ -52,9 +51,5 @@ class Cerberus:
         filename = os.path.splitext(file_save_path)[0]
 
         Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
-
-        S3.upload(filename + self.target_file_extension, filename + self.target_file_extension)
-
-        os.remove(filename + self.target_file_extension)
 
         os.remove(local_filename)

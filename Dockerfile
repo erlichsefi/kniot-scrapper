@@ -1,4 +1,10 @@
-FROM 581987291365.dkr.ecr.eu-central-1.amazonaws.com/ybaruchel/kniot-scrapper/base-image:latest
+FROM python:3
+
+WORKDIR /usr/src/app
+
+COPY requirements.txt ./
+
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 

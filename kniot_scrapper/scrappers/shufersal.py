@@ -6,8 +6,7 @@ from scrapy.crawler import CrawlerProcess
 
 class Shufersal:
 
-   @staticmethod
-   def scrape():
+   def scrape(self):
        Logger.start_scrapper("Shufersal")
 
        logging.getLogger('scrapy').propagate = False

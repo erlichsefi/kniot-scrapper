@@ -3,13 +3,13 @@ import os
 import re
 import scrapy
 from kniot_scrapper.utils import Gzip
-from kniot_scrapper.utils import S3
 from tqdm import tqdm
 from urllib.parse import urlsplit
 from urllib.request import urlretrieve
 
 
 class Shufersal(scrapy.Spider):
+    
     name = 'shufersal-spider'
     start_urls = ['http://prices.shufersal.co.il']
     allowed_domains = ['prices.shufersal.co.il']
@@ -63,12 +63,7 @@ class Shufersal(scrapy.Spider):
 
             Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
 
-            S3.upload(filename + self.target_file_extension, filename + self.target_file_extension)
-
-            os.remove(filename + self.target_file_extension)
-
             os.remove(filename + self.original_file_extension)
-
 
     def continue_to_next_pages(self, response):
         for next_page in response.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[contains(.,">")]'):

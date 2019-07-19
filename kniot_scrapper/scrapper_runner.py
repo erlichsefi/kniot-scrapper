@@ -7,15 +7,21 @@ class ScrapperRunner:
     def run():
         print("Starting scrapper")
 
-        RamiLevy().scrape()
-        Osherad().scrape()
-        HaziHinam().scrape()
-        Keshet().scrape()
-        SuperDosh().scrape()
-        Yohananof().scrape()
-        StopMarket().scrape()
-        DorAlon().scrape()
-        TivTaam().scrape()
-        FreshMarket().scrape()
-        Shufersal.scrape()
+        chainScrappers =	{
+            "shufersal": Shufersal,
+            "ramiLevy": RamiLevy,
+            "osherad": Osherad,
+            "haziHinam": HaziHinam,
+            "keshet": Keshet,
+            "superDosh": SuperDosh,
+            "yohananof": Yohananof,
+            "stopMarket": StopMarket,
+            "dorAlon": DorAlon,
+            "tivTaam": TivTaam,
+            "freshMarket": FreshMarket,
+        }
+
+        for chainScrapper in chainScrappers.values(): 
+            chainScrapper().scrape()
+     
 
