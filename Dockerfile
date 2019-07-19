@@ -1,6 +1,6 @@
-FROM arm32v7/python:3.7-buster
+FROM arm32v7/python:3.7.4-alpine3.9
 
-RUN apt install gcc
+RUN apk add gcc musl-dev libffi-dev
 
 WORKDIR /usr/src/app
 
