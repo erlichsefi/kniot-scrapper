@@ -1,0 +1,10 @@
+sudo: required
+services:
+- docker
+language: bash
+script:
+- docker build -t ybaruchel/kniot-scrapper --build-arg BUILD_ID=master-$TRAVIS_COMMIT-$TRAVIS_BUILD_NUMBER .
+- echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin &&
+  docker tag ybaruchel/kniot-scrapper ybaruchel/kniot-scrapper:master-$TRAVIS_COMMIT-$TRAVIS_BUILD_NUMBER &&
+  docker push ybaruchel/kniot-scrapper:master-$TRAVIS_COMMIT-$TRAVIS_BUILD_NUMBER &&
+  docker push ybaruchel/kniot-scrapper
