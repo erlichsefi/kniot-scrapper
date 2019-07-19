@@ -2,7 +2,6 @@ from ftplib import FTP_TLS
 from kniot_scrapper.utils import Gzip
 import ntpath
 import os
-from tqdm import tqdm
 
 
 class Cerberus:
@@ -12,8 +11,6 @@ class Cerberus:
     ftp_password = ''
     storage_path = ''
 
-    progressbar = False
-
     target_file_extension = '.xml'
 
     def scrape(self):
@@ -22,16 +19,12 @@ class Cerberus:
 
         file_names = ftp.nlst()
 
-        self.progressbar = tqdm(total=len(file_names))
-
         for filename in file_names:
             self.persist_file(ftp, filename)
 
         ftp.quit()
 
     def persist_file(self, ftp, filename):
-
-        self.progressbar.update(1)
 
         temporary_gz_file_path = os.path.join(self.storage_path, filename)
 
