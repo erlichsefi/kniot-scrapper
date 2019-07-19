@@ -14,6 +14,3 @@ Israel supermarkets XML files scrapper
 * Superdosh
 * Tiv Taam
 * Yohananof
-
-## TODO:
-* Add scrappers for other chains

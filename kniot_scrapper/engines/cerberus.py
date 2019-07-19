@@ -35,7 +35,7 @@ class Cerberus:
 
         temporary_gz_file_path = os.path.join(self.storage_path, filename)
 
-        self.fetch_temporary_gz_file(filename, temporary_gz_file_path)
+        self.fetch_temporary_gz_file(ftp, filename, temporary_gz_file_path)
        
         extension = os.path.splitext(filename)[1]
 
@@ -49,7 +49,7 @@ class Cerberus:
 
         os.remove(temporary_gz_file_path)
 
-    def fetch_temporary_gz_file(self, filename, temporary_gz_file_path):
+    def fetch_temporary_gz_file(self, ftp, filename, temporary_gz_file_path):
 
         file = open(temporary_gz_file_path, 'wb')
 
