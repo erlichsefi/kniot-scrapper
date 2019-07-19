@@ -33,23 +33,28 @@ class Cerberus:
 
         self.progressbar.update(1)
 
-        local_filename = os.path.join(self.storage_path, filename)
+        temporary_gz_file_path = os.path.join(self.storage_path, filename)
 
-        file = open(local_filename, 'wb')
-
-        ftp.retrbinary('RETR ' + filename, file.write)
-
-        file.close()
-
+        self.fetch_temporary_gz_file(filename, temporary_gz_file_path)
+       
         extension = os.path.splitext(filename)[1]
 
         if extension != '.gz':
             return
 
-        file_save_path = self.storage_path + ntpath.basename(local_filename)
-
+        file_save_path = self.storage_path + ntpath.basename(temporary_gz_file_path)
         filename = os.path.splitext(file_save_path)[0]
 
         Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
 
-        os.remove(local_filename)
+        os.remove(temporary_gz_file_path)
+
+    def fetch_temporary_gz_file(self, filename, temporary_gz_file_path):
+
+        file = open(temporary_gz_file_path, 'wb')
+
+        ftp.retrbinary('RETR ' + filename, file.write)
+
+        file.close()
+
+

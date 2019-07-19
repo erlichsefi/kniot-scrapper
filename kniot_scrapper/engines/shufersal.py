@@ -23,18 +23,19 @@ class Shufersal(scrapy.Spider):
 
     def parse(self, response):
 
-        links = self.collect_links(response)
+        file_links = self.collect_file_links(response)
 
         total_pages = self.get_total_pages(response)
 
         self.start_progress_bar(total_pages)
 
-        self.get_xml_files(links)
+        self.store_xml_files(file_links)
 
         return self.continue_to_next_pages(response)
 
     @staticmethod
-    def collect_links(response):
+    def collect_file_links(response):
+
         links = []
         for link in response.xpath('//*[@id="gridContainer"]/table/tbody/tr/td[1]/a/@href').extract():
             links.append(link)
@@ -42,17 +43,20 @@ class Shufersal(scrapy.Spider):
 
     @staticmethod
     def get_total_pages(response):
+
         last_page_link = response.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[last()]/@href').extract()[0]
         regex = r"[0-9]+"
         matches = re.search(regex, last_page_link)
         return int(matches.group())
 
     def start_progress_bar(self, total_pages):
+
         if self.progressbar:
             return 0
         self.progressbar = tqdm(total=total_pages * self.files_per_page)
 
-    def get_xml_files(self, links):
+    def store_xml_files(self, links):
+
         for index, file_link in enumerate(links):
             self.progressbar.update(1)
 
@@ -66,5 +70,6 @@ class Shufersal(scrapy.Spider):
             os.remove(filename + self.original_file_extension)
 
     def continue_to_next_pages(self, response):
+        
         for next_page in response.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[contains(.,">")]'):
             yield response.follow(next_page, self.parse)
