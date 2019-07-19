@@ -2,6 +2,7 @@
 
 Israel supermarkets XML files scrapper
 
+
 ## Supports:
 * Dor Alon
 * Freshmarket
