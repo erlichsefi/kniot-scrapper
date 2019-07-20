@@ -3,6 +3,8 @@ import lxml.html
 import ntpath
 import os
 import re
+from urllib.parse import urlsplit
+from urllib.request import urlretrieve
 from kniot_scrapper.utils import Gzip
 from kniot_scrapper.utils import Logger
 
