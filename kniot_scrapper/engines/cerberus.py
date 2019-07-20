@@ -9,6 +9,7 @@ class Cerberus:
 
     chain = ''
     ftp_host = 'url.retail.publishedprices.co.il'
+    ftp_path = '/'
     ftp_username = ''
     ftp_password = ''
     storage_path = ''
@@ -22,6 +23,7 @@ class Cerberus:
         self.storage_path = 'dumps/' + self.chain + '/'
 
         self.ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
+        self.ftp.cwd(self.ftp_path)
 
         file_names = self.ftp.nlst()
 
@@ -70,7 +72,7 @@ class Cerberus:
         file = open(temporary_gz_file_path, 'wb')
 
         ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
-
+        ftp.cwd(self.ftp_path)
         ftp.retrbinary('RETR ' + file_name, file.write)
         
         ftp.quit()

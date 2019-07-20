@@ -15,3 +15,4 @@ Israel supermarkets XML files scrapper
 * Superdosh
 * Tiv Taam
 * Yohananof
+* Salach Dabach
