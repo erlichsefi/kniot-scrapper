@@ -1,13 +1,9 @@
 import ntpath
 import os
-import re
-import urllib
 import lxml.html
 import re
-from lxml import etree
 from kniot_scrapper.utils import Gzip
-from urllib.parse import urlsplit
-from urllib.request import urlretrieve
+import asyncio
 
 
 class Shufersal:
@@ -21,20 +17,34 @@ class Shufersal:
 
     def scrape(self):
 
-        self.scrape_page(self.base_url);
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.scrape_pages(self.base_url))
+
+    async def scrape_pages(self, page):
+        loop = asyncio.get_event_loop()
+        html = lxml.html.parse(page)
+
+        total_pages = self.get_total_pages(html)
+
+        futures = []
+        for page_number in range(1, total_pages + 1):
+            futures.append(loop.run_in_executor(
+                None, 
+                self.scrape_page, 
+                self.base_url + '?page=' + str(page_number)
+            )) 
+
+        for response in await asyncio.gather(*futures):
+            pass
 
     def scrape_page(self, page):
 
         html = lxml.html.parse(page)
 
-        total_pages = self.get_total_pages(html)
+        file_links = self.collect_file_links(html)
 
-        for page_number in range(1, total_pages + 1):
-            html = lxml.html.parse(self.base_url + '?page=' + str(page_number))
-
-            file_links = self.collect_file_links(html)
-
-            self.store_xml_files(file_links)
+        self.store_xml_files(file_links)
+        
 
     def collect_file_links(self, html):
 

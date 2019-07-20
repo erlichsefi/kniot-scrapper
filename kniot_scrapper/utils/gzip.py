@@ -1,5 +1,5 @@
 import gzip
-
+import shutil
 
 class Gzip:
 
@@ -8,7 +8,6 @@ class Gzip:
         try:
             with gzip.open(file_save_path, 'rb') as infile:
                 with open(filename + target_file_extension, 'wb') as outfile:
-                    for line in infile:
-                        outfile.write(line)
+                    shutil.copyfileobj(infile, outfile)
         except:
             print('Error decoding file:' + filename)
