@@ -1,4 +1,4 @@
-FROM arm32v7/python:3-stretch
+FROM arm32v7/python:3-jessie
 
 COPY --from=hypriot/rpi-alpine /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
 
