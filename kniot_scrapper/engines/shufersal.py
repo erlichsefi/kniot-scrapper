@@ -2,7 +2,6 @@ import ntpath
 import os
 import re
 import urllib
-import libxml
 from kniot_scrapper.utils import Gzip
 from urllib.parse import urlsplit
 from urllib.request import urlretrieve
