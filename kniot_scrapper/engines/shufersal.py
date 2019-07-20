@@ -24,7 +24,7 @@ class Shufersal:
     def scrape_page(self, page):
 
         html = lxml.html.parse(page)
-        test=html.xpath("//*[@id="gridContainer"]/table/tbody/tr/td[1]/a/@href")
+        test=html.xpath('//*[@id="gridContainer"]/table/tbody/tr/td[1]/a/@href')
         print(test)
         return 'hello'
 
