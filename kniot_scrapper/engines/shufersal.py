@@ -1,9 +1,10 @@
+import asyncio
+import lxml.html
 import ntpath
 import os
-import lxml.html
 import re
 from kniot_scrapper.utils import Gzip
-import asyncio
+from kniot_scrapper.utils import Logger
 
 
 class Shufersal:

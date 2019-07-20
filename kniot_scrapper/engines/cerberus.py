@@ -1,8 +1,9 @@
-from ftplib import FTP_TLS
-from kniot_scrapper.utils import Gzip
+import asyncio
 import ntpath
 import os
-import asyncio
+from ftplib import FTP_TLS
+from kniot_scrapper.utils import Gzip
+from kniot_scrapper.utils import Logger
 
 class Cerberus:
 
