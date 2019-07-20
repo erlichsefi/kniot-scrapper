@@ -7,5 +7,3 @@ services:
     hostname: kniot-scrapper
     volumes:
     - ./:/usr/src/app
-    tty: true
-    stdin_open: true
