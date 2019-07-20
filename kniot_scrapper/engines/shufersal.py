@@ -39,6 +39,9 @@ class Shufersal(Engine):
         for response in await asyncio.gather(*futures):
             pass
 
+    def get_total_pages(self, html):
+        return int(re.findall("^\/\?page\=([0-9]{2})$", html.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[6]/@href')[0])[0])
+
     def scrape_page(self, page):
         html = lxml.html.parse(page)
 
@@ -71,7 +74,3 @@ class Shufersal(Engine):
         Gzip.extract_xml_file_from_gz_file(file_save_path)
 
         os.remove(file_save_path)
-
-
-    def get_total_pages(self, html):
-        return int(re.findall("^\/\?page\=([0-9]{2})$", html.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[6]/@href')[0])[0])

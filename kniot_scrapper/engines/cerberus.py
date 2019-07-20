@@ -20,15 +20,16 @@ class Cerberus(Engine):
     def scrape(self):
         super(Cerberus, self).scrape()
         
+        loop = asyncio.get_event_loop()
+        files = self.get_files()
+        loop.run_until_complete(self.persist_files(files))
+
+    def get_files(self):
         self.ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
         self.ftp.cwd(self.ftp_path)
-
-        file_names = self.ftp.nlst()
-
-        loop = asyncio.get_event_loop()
-        loop.run_until_complete(self.persist_files(file_names))
-
+        files = self.ftp.nlst()
         self.ftp.quit()
+        return files
 
     async def persist_files(self, file_names):
         loop = asyncio.get_event_loop()
@@ -43,28 +44,22 @@ class Cerberus(Engine):
         for response in await asyncio.gather(*futures):
             pass
 
-
     def persist_file(self, file_name):
-        Logger.file_parse(self.chain, file_name)
-
-        temporary_gz_file_path = os.path.join(self.storage_path, file_name)
-
-        self.fetch_temporary_gz_file(file_name, temporary_gz_file_path)
-       
         extension = os.path.splitext(file_name)[1]
-
         if extension != '.gz':
             return
 
-        file_save_path = os.path.join(self.storage_path, ntpath.basename(temporary_gz_file_path))
-        file_name = os.path.splitext(file_save_path)[0]
+        Logger.file_parse(self.chain, file_name)
 
-        Gzip.extract_xml_file_from_gz_file(file_save_path)
+        temporary_gz_file_path = os.path.join(self.storage_path, file_name)
+        self.fetch_temporary_gz_file(temporary_gz_file_path)
+        Gzip.extract_xml_file_from_gz_file(temporary_gz_file_path)
 
         os.remove(temporary_gz_file_path)
 
-    def fetch_temporary_gz_file(self, file_name, temporary_gz_file_path):
+    def fetch_temporary_gz_file(self, temporary_gz_file_path):
         file = open(temporary_gz_file_path, 'wb')
+        file_name = ntpath.basename(temporary_gz_file_path)
 
         try:
             ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
@@ -73,6 +68,6 @@ class Cerberus(Engine):
             ftp.quit()
         except:
             Logger.file_parse(self.chain, file_name)
-            self.fetch_temporary_gz_file(file_name, temporary_gz_file_path)
+            self.fetch_temporary_gz_file(temporary_gz_file_path)
 
         file.close()
