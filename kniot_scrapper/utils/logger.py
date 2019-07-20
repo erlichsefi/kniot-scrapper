@@ -9,6 +9,6 @@ class Logger:
     @staticmethod
     def file_parse(chain, file_name):
 
-        print("Parsing " chain + "::" + file_name)
+        print("Parsing " + chain + "::" + file_name)
 
     
