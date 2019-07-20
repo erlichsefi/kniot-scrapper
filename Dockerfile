@@ -8,4 +8,4 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-ENTRYPOINT [ "pip3", "list" ]
+ENTRYPOINT [ "python3", "./main.py" ]

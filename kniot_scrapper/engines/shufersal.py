@@ -3,6 +3,8 @@ import os
 import re
 import urllib
 import lxml.html
+import re
+from lxml import etree
 from kniot_scrapper.utils import Gzip
 from urllib.parse import urlsplit
 from urllib.request import urlretrieve
@@ -12,45 +14,34 @@ class Shufersal:
     
     storage_path = 'dumps/shufersal/'
 
-    start_page = 'http://prices.shufersal.co.il/'
+    base_url = 'http://prices.shufersal.co.il/'
 
     original_file_extension = '.gz'
     target_file_extension = '.xml'
 
     def scrape(self):
 
-        self.scrape_page(self.start_page);
+        self.scrape_page(self.base_url);
 
     def scrape_page(self, page):
 
         html = lxml.html.parse(page)
-        test=html.xpath('//*[@id="gridContainer"]/table/tbody/tr/td[1]/a/@href')
-        print(test)
-        return 'hello'
 
-        file_links = self.collect_file_links(response)
+        total_pages = self.get_total_pages(html)
 
-        total_pages = self.get_total_pages(response)
+        for page_number in range(1, total_pages + 1):
+            html = lxml.html.parse(self.base_url + '?page=' + str(page_number))
 
-        self.store_xml_files(file_links)
+            file_links = self.collect_file_links(html)
 
-        return self.scrape_page(response)
+            self.store_xml_files(file_links)
 
-    @staticmethod
-    def collect_file_links(response):
+    def collect_file_links(self, html):
 
         links = []
-        for link in response.xpath('//*[@id="gridContainer"]/table/tbody/tr/td[1]/a/@href').extract():
+        for link in html.xpath('//*[@id="gridContainer"]/table/tbody/tr/td[1]/a/@href'):
             links.append(link)
         return links
-
-    @staticmethod
-    def get_total_pages(response):
-
-        last_page_link = response.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[last()]/@href').extract()[0]
-        regex = r"[0-9]+"
-        matches = re.search(regex, last_page_link)
-        return int(matches.group())
 
     def store_xml_files(self, links):
 
@@ -64,7 +55,6 @@ class Shufersal:
 
             os.remove(filename + self.original_file_extension)
 
-    def continue_to_next_pages(self, response):
-        
-        for next_page in response.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[contains(.,">")]'):
-            yield response.follow(next_page, self.parse)
+    def get_total_pages(self, html):
+
+        return int(re.findall("^\/\?page\=([0-9]{2})$", html.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[6]/@href')[0])[0])
