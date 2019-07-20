@@ -21,7 +21,8 @@ class Cerberus:
     def scrape(self):
     
         self.storage_path = os.path.join(os.environ['XML_STORE_PATH'], self.chain)
-        os.mkdir(self.storage_path)
+        if not os.path.exists(self.storage_path):
+            os.mkdir(self.storage_path)
 
         self.ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
         self.ftp.cwd(self.ftp_path)

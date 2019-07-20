@@ -22,7 +22,8 @@ class Shufersal:
     def scrape(self):
         
         self.storage_path = os.path.join(os.environ['XML_STORE_PATH'], self.chain)
-        os.mkdir(self.storage_path)
+        if not os.path.exists(self.storage_path):
+            os.mkdir(self.storage_path)
 
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.scrape_pages(self.base_url))
@@ -76,7 +77,7 @@ class Shufersal:
         except:
             Logger.file_retry(self.chain, filename + self.original_file_extension)
             self.store_xml_file(file_link)
-            
+
         Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
 
         os.remove(filename + self.original_file_extension)
