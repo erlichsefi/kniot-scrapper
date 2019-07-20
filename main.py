@@ -1,6 +1,5 @@
 from kniot_scrapper import ScrapperRunner
 
-
 class Main:
 
     def start(self):

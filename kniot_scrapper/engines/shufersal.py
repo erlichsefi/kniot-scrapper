@@ -5,24 +5,19 @@ import os
 import re
 from urllib.parse import urlsplit
 from urllib.request import urlretrieve
+from kniot_scrapper import Engine
 from kniot_scrapper.utils import Gzip
 from kniot_scrapper.utils import Logger
 
 
-class Shufersal:
+class Shufersal(Engine):
     
-    chain = ''
-    storage_path = ''
-
     base_url = 'http://prices.shufersal.co.il/'
 
-    original_file_extension = '.gz'
     target_file_extension = '.xml'
 
     def scrape(self):
-        self.storage_path = os.path.join(os.environ['XML_STORE_PATH'], self.chain)
-        if not os.path.exists(self.storage_path):
-            os.mkdir(self.storage_path)
+        super(Shufersal, self).scrape()
 
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.scrape_pages(self.base_url))
@@ -64,19 +59,18 @@ class Shufersal:
 
     def store_xml_file(self, file_link):
         file_save_path = os.path.join(self.storage_path, ntpath.basename(urlsplit(file_link).path))
-        filename = os.path.splitext(file_save_path)[0]
         
         Logger.file_parse(self.chain, ntpath.basename(urlsplit(file_link).path))
 
         try:
-            urlretrieve(file_link, filename + self.original_file_extension)
+            urlretrieve(file_link, file_save_path)
         except:
             Logger.file_retry(self.chain, ntpath.basename(urlsplit(file_link).path))
             self.store_xml_file(file_link)
 
-        Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
+        Gzip.extract_xml_file_from_gz_file(file_save_path)
 
-        os.remove(filename + self.original_file_extension)
+        os.remove(file_save_path)
 
 
     def get_total_pages(self, html):
