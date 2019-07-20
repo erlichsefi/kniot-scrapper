@@ -72,10 +72,13 @@ class Cerberus:
 
         file = open(temporary_gz_file_path, 'wb')
 
-        ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
-        ftp.cwd(self.ftp_path)
-        ftp.retrbinary('RETR ' + file_name, file.write)
-        
-        ftp.quit()
+        try:
+            ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
+            ftp.cwd(self.ftp_path)
+            ftp.retrbinary('RETR ' + file_name, file.write)
+            ftp.quit()
+        except:
+            Logger.file_parse(self.chain, file_name)
+            self.fetch_temporary_gz_file(file_name, temporary_gz_file_path)
 
         file.close()
