@@ -12,7 +12,7 @@ from kniot_scrapper.utils import Logger
 class Shufersal:
     
     chain = ''
-    storage_path = 'dumps/shufersal/'
+    storage_path = ''
 
     base_url = 'http://prices.shufersal.co.il/'
 
@@ -21,7 +21,9 @@ class Shufersal:
 
     def scrape(self):
         
+        self.storage_path = os.path.join(os.environ['XML_STORE_PATH'], self.chain)
         os.mkdir(self.storage_path)
+
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.scrape_pages(self.base_url))
 
@@ -61,7 +63,7 @@ class Shufersal:
     def store_xml_files(self, links):
 
         for index, file_link in enumerate(links):
-            file_save_path = self.storage_path + ntpath.basename(urlsplit(file_link).path)
+            file_save_path = os.path.join(self.storage_path, ntpath.basename(urlsplit(file_link).path))
             filename = os.path.splitext(file_save_path)[0]
             
             Logger.file_parse(self.chain, filename + self.original_file_extension)

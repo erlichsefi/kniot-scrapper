@@ -3,6 +3,8 @@ services:
   kniot-scrapper:
     build:
       context: .
+    environment: 
+      XML_STORE_PATH: dumps/
     container_name: kniot-scrapper
     hostname: kniot-scrapper
     volumes:

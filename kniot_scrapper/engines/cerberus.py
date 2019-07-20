@@ -19,8 +19,8 @@ class Cerberus:
     ftp = False
 
     def scrape(self):
-
-        self.storage_path = 'dumps/' + self.chain + '/'
+    
+        self.storage_path = os.path.join(os.environ['XML_STORE_PATH'], self.chain)
         os.mkdir(self.storage_path)
 
         self.ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
@@ -61,7 +61,7 @@ class Cerberus:
         if extension != '.gz':
             return
 
-        file_save_path = self.storage_path + ntpath.basename(temporary_gz_file_path)
+        file_save_path = os.path.join(self.storage_path, ntpath.basename(temporary_gz_file_path))
         file_name = os.path.splitext(file_save_path)[0]
 
         Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, file_name)
