@@ -1,15 +1,11 @@
-FROM arm32v7/python:3.7-alpine
+FROM arm32v7/alpine:3.9
 
 COPY --from=hypriot/rpi-alpine /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
 
-RUN apk add py3-lxml
+RUN apk add python3 pip3 py3-lxml
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
-
-RUN pip3 install --no-cache-dir -r requirements.txt
-
 COPY . .
 
-ENTRYPOINT [ "python3", "./main.py" ]
+ENTRYPOINT [ "pip3", "list" ]
