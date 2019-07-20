@@ -11,4 +11,9 @@ class Logger:
 
         print("Parsing " + chain + "::" + file_name)
 
+    @staticmethod
+    def file_retry(chain, file_name):
+
+        print("Retrying " + chain + "::" + file_name)
+
     

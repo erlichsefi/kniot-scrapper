@@ -63,16 +63,24 @@ class Shufersal:
     def store_xml_files(self, links):
 
         for index, file_link in enumerate(links):
-            file_save_path = os.path.join(self.storage_path, ntpath.basename(urlsplit(file_link).path))
-            filename = os.path.splitext(file_save_path)[0]
-            
-            Logger.file_parse(self.chain, filename + self.original_file_extension)
+            self.store_xml_file(file_link)
 
+    def store_xml_file(self, file_link):
+        file_save_path = os.path.join(self.storage_path, ntpath.basename(urlsplit(file_link).path))
+        filename = os.path.splitext(file_save_path)[0]
+        
+        Logger.file_parse(self.chain, filename + self.original_file_extension)
+
+        try:
             urlretrieve(file_link, filename + self.original_file_extension)
+        except:
+            Logger.file_retry(self.chain, filename + self.original_file_extension)
+            self.store_xml_file(file_link)
+)
+        Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
 
-            Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
+        os.remove(filename + self.original_file_extension)
 
-            os.remove(filename + self.original_file_extension)
 
     def get_total_pages(self, html):
 
