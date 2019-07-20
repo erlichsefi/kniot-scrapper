@@ -2,12 +2,8 @@ sudo: required
 services:
 - docker
 language: bash
-install: true
-before_script:
-  - sudo apt-get --yes --no-install-recommends install binfmt-support qemu-user-static
-  - echo ':arm:M::\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00:\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff:/usr/bin/qemu-arm-static:' | sudo tee -a /proc/sys/fs/binfmt_misc/register
-  - docker pull arm32v7/python:3.7.4-alpine3.9
 script:
+- docker run --rm --privileged multiarch/qemu-user-static:register --reset
 - docker build -t ybaruchel/kniot-scrapper .
 - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin &&
   docker tag ybaruchel/kniot-scrapper ybaruchel/kniot-scrapper:master-$TRAVIS_COMMIT-$TRAVIS_BUILD_NUMBER &&
