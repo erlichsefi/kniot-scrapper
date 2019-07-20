@@ -9,6 +9,7 @@ from kniot_scrapper.utils import Logger
 
 class Shufersal:
     
+    chain = ''
     storage_path = 'dumps/shufersal/'
 
     base_url = 'http://prices.shufersal.co.il/'
@@ -59,6 +60,8 @@ class Shufersal:
         for index, file_link in enumerate(links):
             file_save_path = self.storage_path + ntpath.basename(urlsplit(file_link).path)
             filename = os.path.splitext(file_save_path)[0]
+            
+            Logger.file_parse(self.chain, filename + self.original_file_extension)
 
             urlretrieve(file_link, filename + self.original_file_extension)
 

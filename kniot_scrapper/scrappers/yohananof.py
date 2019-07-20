@@ -4,9 +4,8 @@ from kniot_scrapper.utils import Logger
 
 class Yohananof(Cerberus):
 
+    chain = 'yohananof'
     ftp_username = 'yohananof'
-
-    storage_path = 'dumps/yohananof/'
 
     def scrape(self):
         Logger.start_scrapper("Yohananof")

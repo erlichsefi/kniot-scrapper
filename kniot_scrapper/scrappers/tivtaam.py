@@ -4,9 +4,8 @@ from kniot_scrapper.utils import Logger
 
 class TivTaam(Cerberus):
 
+    chain = 'tivtaam'
     ftp_username = 'TivTaam'
-
-    storage_path = 'dumps/tivtaam/'
 
     def scrape(self):
         Logger.start_scrapper("Tiv Taam")

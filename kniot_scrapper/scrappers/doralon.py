@@ -4,9 +4,8 @@ from kniot_scrapper.utils import Logger
 
 class DorAlon(Cerberus):
 
+    chain = 'doralon'
     ftp_username = 'doralon'
-
-    storage_path = 'dumps/doralon/'
 
     def scrape(self):
         Logger.start_scrapper("Dor Alon")

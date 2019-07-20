@@ -8,7 +8,7 @@ class ScrapperRunner:
         print("Starting scrapper")
 
         chainScrappers = {
-            # "shufersal": Shufersal,
+            "shufersal": Shufersal,
             "ramiLevy": RamiLevy,
             "osherad": Osherad,
             "haziHinam": HaziHinam,

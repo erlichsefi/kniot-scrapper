@@ -4,9 +4,8 @@ from kniot_scrapper.utils import Logger
 
 class Osherad(Cerberus):
 
+    chain = 'osherad'
     ftp_username = 'osherad'
-
-    storage_path = 'dumps/osherad/'
 
     def scrape(self):
         Logger.start_scrapper("Osher Ad")

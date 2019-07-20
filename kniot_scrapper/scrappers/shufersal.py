@@ -5,6 +5,8 @@ from kniot_scrapper.utils import Logger
 
 class Shufersal(ShufersalEngine):
 
+    chain = 'shufersal'
+
     def scrape(self):
         
         Logger.start_scrapper("Shufersal")

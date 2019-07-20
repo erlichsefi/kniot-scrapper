@@ -4,9 +4,8 @@ from kniot_scrapper.utils import Logger
 
 class SuperDosh(Cerberus):
 
+    chain = 'superdosh'
     ftp_username = 'SuperDosh'
-
-    storage_path = 'dumps/superdosh/'
 
     def scrape(self):
         Logger.start_scrapper("SuperDosh")

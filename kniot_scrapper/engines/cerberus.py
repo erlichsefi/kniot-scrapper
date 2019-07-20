@@ -7,6 +7,7 @@ from kniot_scrapper.utils import Logger
 
 class Cerberus:
 
+    chain = ''
     ftp_host = 'url.retail.publishedprices.co.il'
     ftp_username = ''
     ftp_password = ''
@@ -17,6 +18,8 @@ class Cerberus:
     ftp = False
 
     def scrape(self):
+
+        self.storage_path = 'dumps/' + self.chain + '/'
 
         self.ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
 
@@ -43,6 +46,8 @@ class Cerberus:
 
 
     def persist_file(self, file_name):
+
+        Logger.file_parse(self.chain, file_name)
 
         temporary_gz_file_path = os.path.join(self.storage_path, file_name)
 

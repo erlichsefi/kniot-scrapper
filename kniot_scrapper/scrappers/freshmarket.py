@@ -4,9 +4,8 @@ from kniot_scrapper.utils import Logger
 
 class FreshMarket(Cerberus):
 
+    chain = 'freshmarket'
     ftp_username = 'freshmarket'
-
-    storage_path = 'dumps/freshmarket/'
 
     def scrape(self):
         Logger.start_scrapper("Fresh Market")
