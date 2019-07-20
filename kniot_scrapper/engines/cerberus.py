@@ -21,6 +21,7 @@ class Cerberus:
     def scrape(self):
 
         self.storage_path = 'dumps/' + self.chain + '/'
+        os.mkdir(self.storage_path)
 
         self.ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
         self.ftp.cwd(self.ftp_path)

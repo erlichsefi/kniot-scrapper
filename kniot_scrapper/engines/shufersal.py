@@ -20,7 +20,8 @@ class Shufersal:
     target_file_extension = '.xml'
 
     def scrape(self):
-
+        
+        os.mkdir(self.storage_path)
         loop = asyncio.get_event_loop()
         loop.run_until_complete(self.scrape_pages(self.base_url))
 
