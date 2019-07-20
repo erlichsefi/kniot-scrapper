@@ -2,6 +2,7 @@ import ntpath
 import os
 import re
 import urllib
+import lxml.html
 from kniot_scrapper.utils import Gzip
 from urllib.parse import urlsplit
 from urllib.request import urlretrieve
@@ -22,10 +23,9 @@ class Shufersal:
 
     def scrape_page(self, page):
 
-        response = urllib.request.urlopen(page)
-        soup = BeautifulSoup(page, 'html.parser')
-        name_box = soup.find('h1', attrs={'class': 'name'})
-        print(response)
+        html = lxml.html.parse(page)
+        test=html.xpath("//*[@id="gridContainer"]/table/tbody/tr/td[1]/a/@href")
+        print(test)
         return 'hello'
 
         file_links = self.collect_file_links(response)

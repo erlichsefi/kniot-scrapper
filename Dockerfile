@@ -1,8 +1,6 @@
-FROM arm32v7/python:3.7.4-alpine3.9
+FROM arm32v7/python:3-stretch
 
 COPY --from=hypriot/rpi-alpine /usr/bin/qemu-arm-static /usr/bin/qemu-arm-static
-
-RUN apk add --update --no-cache libxml2 libxml2-dev libxslt-dev gcc g++
 
 WORKDIR /usr/src/app
 
