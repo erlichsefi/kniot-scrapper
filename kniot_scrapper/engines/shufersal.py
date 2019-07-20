@@ -20,7 +20,6 @@ class Shufersal:
     target_file_extension = '.xml'
 
     def scrape(self):
-        
         self.storage_path = os.path.join(os.environ['XML_STORE_PATH'], self.chain)
         if not os.path.exists(self.storage_path):
             os.mkdir(self.storage_path)
@@ -46,7 +45,6 @@ class Shufersal:
             pass
 
     def scrape_page(self, page):
-
         html = lxml.html.parse(page)
 
         file_links = self.collect_file_links(html)
@@ -55,14 +53,12 @@ class Shufersal:
         
 
     def collect_file_links(self, html):
-
         links = []
         for link in html.xpath('//*[@id="gridContainer"]/table/tbody/tr/td[1]/a/@href'):
             links.append(link)
         return links
 
     def store_xml_files(self, links):
-
         for index, file_link in enumerate(links):
             self.store_xml_file(file_link)
 
@@ -70,12 +66,12 @@ class Shufersal:
         file_save_path = os.path.join(self.storage_path, ntpath.basename(urlsplit(file_link).path))
         filename = os.path.splitext(file_save_path)[0]
         
-        Logger.file_parse(self.chain, filename + self.original_file_extension)
+        Logger.file_parse(self.chain, ntpath.basename(urlsplit(file_link).path))
 
         try:
             urlretrieve(file_link, filename + self.original_file_extension)
         except:
-            Logger.file_retry(self.chain, filename + self.original_file_extension)
+            Logger.file_retry(self.chain, ntpath.basename(urlsplit(file_link).path))
             self.store_xml_file(file_link)
 
         Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
@@ -84,5 +80,4 @@ class Shufersal:
 
 
     def get_total_pages(self, html):
-
         return int(re.findall("^\/\?page\=([0-9]{2})$", html.xpath('//*[@id="gridContainer"]/table/tfoot/tr/td/a[6]/@href')[0])[0])
