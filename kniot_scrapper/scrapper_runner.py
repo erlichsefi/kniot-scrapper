@@ -24,5 +24,3 @@ class ScrapperRunner:
 
         for chainScrapper in chainScrappers.values(): 
             chainScrapper().scrape()
-     
-

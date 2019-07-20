@@ -79,5 +79,3 @@ class Cerberus:
         ftp.quit()
 
         file.close()
-
-
