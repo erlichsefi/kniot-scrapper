@@ -76,7 +76,7 @@ class Shufersal:
         except:
             Logger.file_retry(self.chain, filename + self.original_file_extension)
             self.store_xml_file(file_link)
-)
+            
         Gzip.extract_xml_file_from_gz_file(self.target_file_extension, file_save_path, filename)
 
         os.remove(filename + self.original_file_extension)
