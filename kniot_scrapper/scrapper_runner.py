@@ -7,9 +7,9 @@ class ScrapperRunner:
     def run():
         print("Starting scrapper")
 
-        zzz = {
-            "ramiLevy": RamiLevy,
+        chainScrappers = {
             "shufersal": Shufersal,
+            "ramiLevy": RamiLevy,
             "osherad": Osherad,
             "haziHinam": HaziHinam,
             "keshet": Keshet,
@@ -19,10 +19,6 @@ class ScrapperRunner:
             "dorAlon": DorAlon,
             "tivTaam": TivTaam,
             "freshMarket": FreshMarket,
-        }
-
-        chainScrappers = {
-            "shufersal": Shufersal,
         }
 
         for chainScrapper in chainScrappers.values(): 
