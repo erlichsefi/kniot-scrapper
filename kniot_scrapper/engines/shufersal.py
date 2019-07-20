@@ -1,25 +1,33 @@
 import ntpath
 import os
 import re
-import scrapy
+import urllib
+import libxml
 from kniot_scrapper.utils import Gzip
 from urllib.parse import urlsplit
 from urllib.request import urlretrieve
 
 
-class Shufersal(scrapy.Spider):
+class Shufersal:
     
-    name = 'shufersal-spider'
-    start_urls = ['http://prices.shufersal.co.il']
-    allowed_domains = ['prices.shufersal.co.il']
-
     storage_path = 'dumps/shufersal/'
 
-    files_per_page = 20
+    start_page = 'http://prices.shufersal.co.il/'
+
     original_file_extension = '.gz'
     target_file_extension = '.xml'
 
-    def parse(self, response):
+    def scrape(self):
+
+        self.scrape_page(self.start_page);
+
+    def scrape_page(self, page):
+
+        response = urllib.request.urlopen(page)
+        soup = BeautifulSoup(page, 'html.parser')
+        name_box = soup.find('h1', attrs={'class': 'name'})
+        print(response)
+        return 'hello'
 
         file_links = self.collect_file_links(response)
 
@@ -27,7 +35,7 @@ class Shufersal(scrapy.Spider):
 
         self.store_xml_files(file_links)
 
-        return self.continue_to_next_pages(response)
+        return self.scrape_page(response)
 
     @staticmethod
     def collect_file_links(response):
