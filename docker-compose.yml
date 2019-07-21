@@ -9,3 +9,5 @@ services:
     hostname: kniot-scrapper
     volumes:
     - ./:/usr/src/app
+  rabbitmq:
+    image: rabbitmq:3

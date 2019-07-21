@@ -33,10 +33,12 @@ class Cerberus(Engine):
 
     async def persist_files(self, file_names):
         loop = asyncio.get_event_loop()
+        EXECUTOR = concurrent.futures.ThreadPoolExecutor(max_workers=8)
+
         futures = []
         for file_name in file_names:
             futures.append(loop.run_in_executor(
-                None, 
+                EXECUTOR, 
                 self.persist_file, 
                 file_name
             )) 

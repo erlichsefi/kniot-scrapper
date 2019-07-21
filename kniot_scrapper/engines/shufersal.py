@@ -1,4 +1,5 @@
 import asyncio
+import concurrent.futures
 import lxml.html
 import ntpath
 import os
@@ -24,14 +25,15 @@ class Shufersal(Engine):
 
     async def scrape_pages(self, page):
         loop = asyncio.get_event_loop()
+        EXECUTOR = concurrent.futures.ThreadPoolExecutor(max_workers=8)
         html = lxml.html.parse(page)
 
         total_pages = self.get_total_pages(html)
-
+        
         futures = []
         for page_number in range(1, total_pages + 1):
             futures.append(loop.run_in_executor(
-                None, 
+                EXECUTOR, 
                 self.scrape_page, 
                 self.base_url + '?page=' + str(page_number)
             )) 
