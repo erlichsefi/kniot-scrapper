@@ -5,6 +5,7 @@ from ftplib import FTP_TLS
 from kniot_scrapper import Engine
 from kniot_scrapper.utils import Gzip
 from kniot_scrapper.utils import Logger
+import concurrent.futures
 
 class Cerberus(Engine):
 
