@@ -1,10 +1,9 @@
 sudo: required
 services:
-- docker
+  - docker
 language: bash
 script:
-- docker run --rm --privileged multiarch/qemu-user-static:register --reset
-- docker build -t ybaruchel/kniot-scrapper .
-- echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin &&
-  docker tag ybaruchel/kniot-scrapper ybaruchel/kniot-scrapper:master-$TRAVIS_COMMIT-$TRAVIS_BUILD_NUMBER &&
-  docker push ybaruchel/kniot-scrapper:master-$TRAVIS_COMMIT-$TRAVIS_BUILD_NUMBER
+  - docker build -t ybaruchel/kniot-scrapper .
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin &&
+    docker tag ybaruchel/kniot-scrapper ybaruchel/kniot-scrapper:master-$TRAVIS_COMMIT-$TRAVIS_BUILD_NUMBER &&
+    docker push ybaruchel/kniot-scrapper:master-$TRAVIS_COMMIT-$TRAVIS_BUILD_NUMBER
