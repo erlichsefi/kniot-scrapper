@@ -3,11 +3,9 @@ services:
   kniot-scrapper:
     build:
       context: .
-    environment: 
+    environment:
       XML_STORE_PATH: dumps/
     container_name: kniot-scrapper
     hostname: kniot-scrapper
     volumes:
-    - ./:/usr/src/app
-  rabbitmq:
-    image: rabbitmq:3
+      - ./:/usr/src/app
