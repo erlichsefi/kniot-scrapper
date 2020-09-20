@@ -6,6 +6,7 @@ class TivTaam(Cerberus):
 
     chain = 'tivtaam'
     ftp_username = 'TivTaam'
+    ftp_password = ''
 
     def scrape(self):
         Logger.start_scrapper("Tiv Taam")

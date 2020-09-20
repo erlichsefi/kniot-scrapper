@@ -61,16 +61,14 @@ class Cerberus(Engine):
         os.remove(temporary_gz_file_path)
 
     def fetch_temporary_gz_file(self, temporary_gz_file_path):
-        file = open(temporary_gz_file_path, 'wb')
-        file_name = ntpath.basename(temporary_gz_file_path)
+        with open(temporary_gz_file_path, 'wb') as file_ftp:
+            file_name = ntpath.basename(temporary_gz_file_path)
 
-        try:
-            ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
-            ftp.cwd(self.ftp_path)
-            ftp.retrbinary('RETR ' + file_name, file.write)
-            ftp.quit()
-        except:
-            Logger.file_parse(self.chain, file_name)
-            self.fetch_temporary_gz_file(temporary_gz_file_path)
-
-        file.close()
+            try:
+                ftp = FTP_TLS(self.ftp_host, self.ftp_username, self.ftp_password)
+                ftp.cwd(self.ftp_path)
+                ftp.retrbinary('RETR ' + file_name, file_ftp.write)
+                ftp.quit()
+            except:
+                Logger.file_parse(self.chain, file_name)
+                self.fetch_temporary_gz_file(temporary_gz_file_path)

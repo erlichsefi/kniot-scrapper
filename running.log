@@ -1,0 +1,6 @@
+DEBUG:root:scraping salachdabach
+DEBUG:asyncio:Using selector: EpollSelector
+DEBUG:root:done scraping salachdabach
+DEBUG:root:scraping shufersal
+DEBUG:root:done scraping shufersal
+DEBUG:root:scraping ramiLevy

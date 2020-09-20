@@ -1,4 +1,8 @@
+import logging
 from kniot_scrapper import ScrapperRunner
+
+
+#logging.basicConfig(filename='running.log',level=logging.DEBUG)
 
 class Main:
 
@@ -7,5 +11,4 @@ class Main:
         runner.run()
 
 if __name__ == '__main__':
-    while True: # Because we want to be always up to date
-        Main().start()
+    Main().start()

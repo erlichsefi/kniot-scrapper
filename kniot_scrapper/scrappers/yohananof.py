@@ -6,6 +6,7 @@ class Yohananof(Cerberus):
 
     chain = 'yohananof'
     ftp_username = 'yohananof'
+    ftp_password = ''
 
     def scrape(self):
         Logger.start_scrapper("Yohananof")

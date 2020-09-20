@@ -7,5 +7,6 @@ services:
       XML_STORE_PATH: dumps/
     container_name: kniot-scrapper
     hostname: kniot-scrapper
+    restart: unless-stopped
     volumes:
       - ./:/usr/src/app

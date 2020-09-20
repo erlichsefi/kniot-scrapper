@@ -6,4 +6,4 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-ENTRYPOINT [ "python3", "./main.py" ]
+CMD "python3 ./main.py >> print_log.txt" 

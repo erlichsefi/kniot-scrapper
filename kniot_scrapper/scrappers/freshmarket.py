@@ -6,6 +6,7 @@ class FreshMarket(Cerberus):
 
     chain = 'freshmarket'
     ftp_username = 'freshmarket'
+    ftp_password = ''
 
     def scrape(self):
         Logger.start_scrapper("Fresh Market")

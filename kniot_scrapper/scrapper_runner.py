@@ -1,5 +1,6 @@
 
 from kniot_scrapper.scrappers import *
+import logging
 
 class ScrapperRunner:
 
@@ -22,5 +23,7 @@ class ScrapperRunner:
             "freshMarket": FreshMarket,
         }
 
-        for chainScrapper in chainScrappers.values(): 
+        for name, chainScrapper in chainScrappers.items():
+            logging.debug(f"scraping {name}") 
             chainScrapper().scrape()
+            logging.debug(f"done scraping {name}") 
